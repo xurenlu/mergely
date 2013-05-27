@@ -411,7 +411,7 @@ jQuery.extend(Mgly.mergely.prototype, {
 		var cmsettings = {
 			mode: 'text/plain',
 			readOnly: false,
-			lineWrapping: false,
+			lineWrapping: true,
 			lineNumbers: true,
 			gutters: ['merge', 'CodeMirror-linenumbers']
 		}
