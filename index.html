@@ -1,0 +1,161 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<!--[if IE]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+<![endif]-->
+	<meta charset="utf-8" /><title>Mergely - Diff and merge documents online</title>
+	<meta http-equiv="content-type" content="text/html; charset=UTF-8"/>
+	<meta name="description" content="Merge and Diff your documents with diff online and share" />
+	<meta name="keywords" content="diff,merge,compare,jsdiff,comparison,difference,file,text,unix,patch,algorithm,saas,longest common subsequence" />
+	<meta name="author" content="Jamie Peabody" />
+	<link rel="shortcut icon" href="http://www.mergely.com/favicon.ico" />
+	<link rel="canonical" href="http://www.mergely.com" />
+
+	<script src="http://www.mergely.com/js/gatag.js" type="text/javascript"></script>
+	<script type="text/javascript">
+		var _gaq = _gaq || [];
+		_gaq.push(['_setAccount', 'UA-85576-5']);
+		_gaq.push(['_trackPageview']);
+		(function() {
+			var ga = document.createElement('script'); ga.type = 'text/javascript'; ga.async = true;
+			ga.src = ('https:' == document.location.protocol ? 'https://ssl' : 'http://www') + '.google-analytics.com/ga.js';
+			var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(ga, s);
+		})();
+	</script>
+	<script type="text/javascript" src="https://apis.google.com/js/plusone.js"></script>
+	
+	<script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+	<script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jqueryui/1.10.1/jquery-ui.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="/style/mergely-theme/jquery-ui-1.10.1.custom.css" />
+
+<!--
+	<script type="text/javascript" src="/api/lib/codemirror.js"></script>
+-->
+	<script type="text/javascript" src="/api/lib/codemirror.min.js"></script>
+	<script type="text/javascript" src="/api/lib/searchcursor.js"></script>
+	<link type="text/css" rel="stylesheet" href="/api/lib/codemirror.css" />
+<!--
+	<script type="text/javascript" src="/api/lib/mergely.js"></script>
+-->
+	<script type="text/javascript" src="/api/lib/mergely.min.js"></script>
+	<link type="text/css" rel="stylesheet" href="/api/lib/mergely.css" />
+	
+	<script type="text/javascript" src="/lib/farbtastic/farbtastic.js"></script>
+	<link type="text/css" rel="stylesheet" href="/lib/farbtastic/farbtastic.css" />
+	<script type="text/javascript" src="/js/jquery.upload.js"></script>
+	<script type="text/javascript" src="/js/editor.js"></script>
+	<link type="text/css" rel="stylesheet" href="/style/editor.css" />
+	
+	<script type="text/javascript">
+		var key = '';
+		var newbie = false;
+	</script>
+</head>
+<body>
+
+	<div id="mergely">
+		<div style="width:850px;"></div>
+		<div id="header">
+			<div id="info">
+				<h3>Mergely - Diff online!</h3>
+				<p>
+					Mergely is a powerful online diff and merge tool for developers that can be used to
+					highlight changes in text.  Use Mergely to compare files, text, HTML, XML, CSS,
+					and javascript.  Mergely is released under dual-license GPLv3 and commercial.
+				</p>
+				<div id="logo"></div>
+
+                <button id="save" class="button-save" title="Save diff for sharing" >Save</button>
+				<button id="new" class="button-new" title="New Diff" href="/">New</button>
+				
+						
+				<!-- Place this tag where you want the +1 button to render -->
+				<a id="about" class="ui-button ui-widget ui-state-hover mbutton" title="About Mergely" href="/about.php">About</a>
+				<div id="settings" class="ui-button ui-widget ui-state-hover mbutton" title="Settings"><img src="/images/gear.png" alt="" /></div>
+				
+				<div style="float:right;width:80px;padding-top:6px;height:30px;display:inline-block;">
+					<g:plusone></g:plusone>
+				</div>
+			</div>
+		</div>
+		<div class="toolbar">
+			<div id="lhs-toolbar" class="buttonset">
+				<input  id="lhs-search-text" type="text" style="display: inline-block; " />
+				<button id="lhs-search" class="button-search" title="Search"></button>
+				<button id="lhs-merge" class="button-merger" title="Merge right"></button>
+				<button id="lhs-swap" class="button-swap" title="Swap left and right"></button>
+				<button id="lhs-clear" class="button-clear" title="Clear"></button>
+				<button id="lhs-download" class="button-download" title="Download"></button>
+				<button id="lhs-download-diff" class="button-download-diff" title="Download .diff file"></button>
+				<button id="lhs-upload" class="button-upload" title="Upload file(s)"></button>
+			</div>
+			<div id="rhs-toolbar" class="buttonset">
+				<input  id="rhs-search-text" type="text" style="display: inline-block;" />
+				<button id="rhs-search" class="button-search" title="Search"></button>
+				<button id="rhs-merge" class="button-mergel" title="Merge left"></button>
+				<button id="rhs-swap" class="button-swap" title="Swap left and right"></button>
+				<button id="rhs-clear" class="button-clear" title="Clear"></button>
+				<button id="rhs-download" class="button-download" title="Download"></button>
+				<button id="rhs-download-diff" class="button-download-diff" title="Download .diff file"></button>
+				<button id="rhs-upload" class="button-upload" title="Upload file(s)"></button>
+			</div>
+		</div>
+		<div id="mergely-resizer">
+			<div id="compare">
+			</div>
+		</div>
+	</div>
+	<div id="dialog-confirm" title="Save a Permanent Copy?">
+		<p>
+			Are you sure you want to save? A permanent copy will be
+			created and a link will be provided for you to share the URL in an email, blog, twitter, etc.  
+			If you just want to download, click the folder icon.
+		</p>
+	</div>
+	<div id="dialog-settings" title="Mergely Settings">
+		<div id="picker" style="float: right;"></div>
+		
+		<fieldset>
+			<legend>Changed</legend>
+			<label for="c-border">Border:</label><input type="text" id="c-border" name="c-border" class="colorwell" />
+			<br />
+			<label for="c-bg">Background:</label><input type="text" id="c-bg" name="c-bg" class="colorwell" />
+			<br />
+		</fieldset>
+		<fieldset>
+			<legend>Added</legend>
+			<label for="a-border">Border:</label><input type="text" id="a-border" name="a-border" class="colorwell" />
+			<br />
+			<label for="a-bg">Background:</label><input type="text" id="a-bg" name="a-bg" class="colorwell" />
+			<br />
+		</fieldset>
+		<fieldset>
+			<legend>Deleted</legend>
+			<label for="d-border">Border:</label><input type="text" id="d-border" name="d-border" class="colorwell" />
+			<br />
+			<label for="d-bg">Background:</label><input type="text" id="d-bg" name="d-bg" class="colorwell" />
+			<br />
+		</fieldset>
+		<fieldset>
+			<legend>Options</legend>
+			<input type="checkbox" id="lcs" name="lcs" /><label class="checkbox" for="lcs">Show words added/removed</label>
+            <br />
+			<input type="checkbox" id="ignore-ws" name="ignore-ws" /><label class="checkbox" for="ignore-ws">Ignore white-space</label>
+            <br />
+			<input type="checkbox" id="wraplines" name="wraplines" /><label class="checkbox" for="wraplines">Wrap lines</label>
+            <br />
+			<input type="checkbox" id="readonly" name="readonly" /><label class="checkbox" for="readonly">Read only</label>
+            <br />
+			<input type="checkbox" id="sidebar" name="sidebar" /><label class="checkbox" for="sidebar">Enable side-bars</label>
+            <br />
+            <!--
+			<input type="checkbox" id="ignoreunchanged" name="sidebar" /><label class="checkbox" for="ignoreunchanged">Ignore unchanged lines</label>
+            <br />
+            -->
+		</fieldset>
+		
+	</div>
+</body>
+</html>
