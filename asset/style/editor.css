@@ -28,4 +28,4 @@ body { margin: 0px; font-family: "trebuchet ms"; }
 #dialog-settings input[type=text] { width: 70px; border: 1px solid #444; float:right; }
 #dialog-settings label.checkbox { width: auto; }
 #dialog-settings fieldset { -webkit-border-radius: 2px; -moz-border-radius: 2px; border-radius: 2px; border: 1px solid #ccc; width: 222px; padding-right: 15px; }
-#mergely-resizer { position: fixed; bottom: 0; top: 73px; width: 100%;}
+#mergely-resizer { position: fixed; bottom: 0; top: 0px; width: 100%;}
